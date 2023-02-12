@@ -6,7 +6,7 @@ Hello World!
 
 Starting a PS blog on github!
 
-```cpp
+{% highlight cpp linenos %}
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -14,4 +14,4 @@ int main()
 {
 	cout << "Hello World!";
 }
-```
+{% endhighlight %}
