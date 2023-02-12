@@ -63,6 +63,7 @@
 .header__brand {
   @include flexbox();
   @include align-items(center);
+  /*
   & > svg {
     width: map-get($base, font-size-h4) * 1.6;
     height: map-get($base, font-size-h4) * 1.6;
@@ -73,6 +74,7 @@
       height: map-get($base, font-size-h4) * 1.2;
     }
   }
+  */
   & > a {
     display: inline-block;
     font-size: map-get($base, font-size-h4);
