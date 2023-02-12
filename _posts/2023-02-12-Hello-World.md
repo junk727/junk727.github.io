@@ -6,12 +6,4 @@ Hello World!
 
 Starting a PS blog on github!
 
-{% highlight cpp linenos %}
-#include <bits/stdc++.h>
-using namespace std;
-
-int main()
-{
-	cout << "Hello World!";
-}
-{% endhighlight %}
+<script src="https://gist.github.com/junk727/ff4299402613d2bdd670c547cbedaa8e.js"></script>
