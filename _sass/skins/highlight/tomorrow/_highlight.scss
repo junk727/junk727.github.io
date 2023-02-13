@@ -2,6 +2,12 @@ figure.highlight::before {
   color: $highlight-comment !important;
   background-color: $highlight-background !important;
 }
+
+pre {
+	font-family: "Fira Mono","Ubuntu Mono",monospace;
+	tab-size: 4;
+}
+
 pre.lineno {
   color: $highlight-comment !important;
 }
