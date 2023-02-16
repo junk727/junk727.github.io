@@ -14,8 +14,8 @@ Exact Cover 문제의 사전적 정의는 다음과 같다.
 
 조합론적 관점에서 보자면 주어진 집합 $X$의 부분 집합들을 원소로 가지는 집합 $S$가 주어졌을 때, $X$의 exact cover는 다음 두 조건을 만족 시키는 $S$의 부분집합 $S^*$를 말한다.
 
-* $S^*$는 서로소 집합이다. 즉, $S^*$ 내부의 어떤 두 집합을 골라도, 교집합은 항상 공집합이다.
-* $S^*$의 원소들의 합집합은 $X$이다.
+* $S^{*}$는 서로소 집합이다. 즉, $S^{*}$ 내부의 어떤 두 집합을 골라도, 교집합은 항상 공집합이다.
+* $S^{*}$의 원소들의 합집합은 $X$이다.
 
 이는 쉽게 말해서 주어진 부분 집합들 중 서로 겹치지 않지만 전체 집합을 구성할 수 있는 조합을 찾아내는 것이다.
 
@@ -23,23 +23,25 @@ Exact Cover 문제의 사전적 정의는 다음과 같다.
 
 이때, $A=\{1, 4, 7\}, B=\{1, 4\}, C=\{4, 5, 7\}, D=\{3, 5, 6\}, E=\{2, 3, 6, 7\}, F=\{2, 7\}$ 라고 하자.
 
-이 경우 $S$의 부분집합 $S^*=\{B, D, F\}$가 $X$의 exact cover가 된다.
+이 경우 $S$의 부분집합 $S^{*}=\{B, D, F\}$가 $X$의 exact cover가 된다.
 
 이처럼 포함 관계가 중심이 되는 exact cover는 다양한 형태로 표현될 수 있는데, 여기서는 추후에 설명할 알고리즘 X에서 사용될 행렬을 이용한 방법에 대해서만 알아보고자 한다.
 
 $S$의 원소들에 대해 행을 구성하고, $X$의 원소들에 대해 열을 구성한다. 이후 $S$의 원소가 $X$의 원소를 포함하고 있으면 1, 아니면 0으로 표시한다. 위의 예시의 경우 다음과 같이 만들어진다.
 
-<center><img class="image image--md" src="img/exact_cover_grid.png"/></center>
+<center><img class="image image--md" src="/img/exact_cover_grid.png"/></center>
 
 ### Exact Hitting Set Problem
 
-Exact cover 문제가 부분집합의 조합을 고르는 것이었다면 이와 비슷하면서도 조금 다른 Exact Hitting Set 문제는 주어진 모든 부분집합에 대해 원소가 한번씩만 등장하는 주어진 전체집합의 부분집합을 고르는 문제이다.  이는 예시를 통해 쉽게 이해할 수 있다. 위에서 설명한 $X=\{1, 2, 3, 4, 5, 6, 7\}$와 $S=\{A, B, C, D, E, F\}$에서 Exact Hitting Set은 $X$의 부분집합 $X^*=\{1, 2, 5\}$가 된다. $S$의 원소들 $A \cdots F$에 대해 $X^*$와 겹치는 원소는 항상 1개이기 때문이다.
+Exact cover 문제가 부분집합의 조합을 고르는 것이었다면 이와 비슷하면서도 조금 다른 Exact Hitting Set 문제는 주어진 모든 부분집합에 대해 원소가 한번씩만 등장하는 주어진 전체집합의 부분집합을 고르는 문제이다.  이는 예시를 통해 쉽게 이해할 수 있다. 위에서 설명한 $X=\{1, 2, 3, 4, 5, 6, 7\}$와 $S=\{A, B, C, D, E, F\}$에서 Exact Hitting Set은 $X$의 부분집합 $X^{*}=\{1, 2, 5\}$가 된다. $S$의 원소들 $A \cdots F$에 대해 $X^{*}$와 겹치는 원소는 항상 1개이기 때문이다.
 
-또한 이는 펜토미노 채우기, 스도쿠, N-Queen과 같은 문제들에 다양하게 활용될 수 있다.
+### 활용
+
+또한 이들은 펜토미노 채우기, 스도쿠, N-Queen과 같은 문제들에 다양하게 활용될 수 있다.
 
 펜토미노의 경우 주어진 보드의 보드칸에 그 칸의 행과 열 번호가 하나의 쌍을 이루어 적혀있다고 보고, 펜토미노를 임의로 보드에 놓았을 때 차지하는 칸에 적힌 숫자를 하나의 집합으로 볼 수 있다.
 
-<center><img class="image image--md" src="img/exact_cover_pentomino.png"></center>
+<center><img class="image image--md" src="/img/exact_cover_pentomino.png"></center>
 
 위와 같이 중심이 뚤린 판을 채우는 경우 다음과 같이 집합을 만들 수 있다.
 
@@ -59,7 +61,7 @@ Exact cover 문제가 부분집합의 조합을 고르는 것이었다면 이와
 
 $$RxCy\#z$$
 
-그러면 위와 같이 $9*9*9=729$개의 경우의 수를 표현 할 수 있다. 그리고 이들을 앞서 설명한 행렬에서 행에 위치 시키고 앞서 말한 조건들을 열에 위치 시킬 수 있다.
+그러면 위와 같이 $9\times 9\times 9=729$개의 경우의 수를 표현 할 수 있다. 그리고 이들을 앞서 설명한 행렬에서 행에 위치 시키고 앞서 말한 조건들을 열에 위치 시킬 수 있다.
 
 이때 조건들은 다음과 같이 표현할 수 있다.
 
@@ -121,7 +123,7 @@ x.right.left ← x.left;
 
 또한 각 열에 대해서는 열의 이름과 그 열에 속한 노드의 개수를 저장하고 있는 _List Header_ 노드와 이들을 관리하는 _Header_ 노드를 추가해준다. 
 
-<center><img class="image image--md" src="img/dancing_link_preview.png"></center>
+<center><img class="image image--md" src="/img/dancing_link_preview.png"></center>
 
 자, 이로써 준비는 끝났다! 본격적으로 알고리즘에 대해 알아보자.
 
@@ -129,7 +131,7 @@ x.right.left ← x.left;
 
 알고리즘의 진행 과정은 앞서 설명한 내용과 별반 다르지 않다.
 
-먼저 알고리즘의 종료 조건인 더 이상 열이 남지 않았을 때는 Header 노드가 자기자신으로 다시 연결되어있는지 확인해주면 된다.
+먼저 알고리즘의 종료 조건인 더 이상 열이 남지 않았을 때는 _Header_ 노드가 자기자신으로 다시 연결되어있는지 확인해주면 된다.
 
 아직 탐색이 더 가능하다면 특정한 규칙(보통 1의 개수가 가장 작은 열을 찾는다)에 따라 열을 고르고, _cover_ 를 해준다. 여기서 _cover_ 란 행에 속해있는 각 원소들이 포함된 열에 속한 원소들을 위 아래로 끊어주는 것이다. 이후 끊어진 원소들에 대해서도 다시 _cover_ 를 진행해준다.  
 
@@ -278,8 +280,8 @@ void uncover(node* c)
 
 ## 참고문헌
 
-* https://en.wikipedia.org/wiki/Exact_cover
-* https://en.wikipedia.org/wiki/Knuth%27s_Algorithm_X
-* https://en.wikipedia.org/wiki/Dancing_Links
-* https://www.geeksforgeeks.org/introduction-to-exact-cover-problem-and-algorithm-x/
-* https://infossm.github.io/blog/2019/12/15/knuths-algorithm-x/
+* <https://en.wikipedia.org/wiki/Exact_cover>
+* <https://en.wikipedia.org/wiki/Knuth%27s_Algorithm_X>
+* <https://en.wikipedia.org/wiki/Dancing_Links>
+* <https://www.geeksforgeeks.org/introduction-to-exact-cover-problem-and-algorithm-x/>
+* <https://infossm.github.io/blog/2019/12/15/knuths-algorithm-x/>
