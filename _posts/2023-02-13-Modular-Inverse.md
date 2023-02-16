@@ -231,3 +231,9 @@ int inverseMod(int a, int m)
     //or return (ans.second.first+m)%m;
 }
 ```
+<!--
+I just found may be amazing? thing
+The solution that I get from eGCD has a certain property!
+From pair (x,y), x is always smaller than b!
+Which means that it is kind of? smallest integer(as it can also be negative), so we don't need to calculate going backwards by minuses!
+/-->
