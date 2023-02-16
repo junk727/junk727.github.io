@@ -1,8 +1,8 @@
 ---
-title: 모듈러 역원 - Modular Inverse
+title: '모듈러 역원 - Modular Inverse'
 tag:
--math
--ps
+- math
+- ps
 ---
 
 ## 유클리드 알고리즘 - Euclidean Algorithm

@@ -1,7 +1,7 @@
 ---
-title: 춤추는 링크 - Dancing Links
+title: '춤추는 링크 - Dancing Links'
 tag:
--ps
+- ps
 ---
 
 이 글에서는 Exact Cover 문제들과 알고리즘 X, 그리고 최적화 테크닉 Dancing Links에 대해 다룬다.
