@@ -2,6 +2,7 @@
 title: '춤추는 링크 - Dancing Links'
 tag:
 - ps
+category: ['Algorithm','Etc']
 ---
 
 이 글에서는 Exact Cover 문제들과 알고리즘 X, 그리고 최적화 테크닉 Dancing Links에 대해 다룬다.
@@ -19,11 +20,11 @@ Exact Cover 문제의 사전적 정의는 다음과 같다.
 
 이는 쉽게 말해서 주어진 부분 집합들 중 서로 겹치지 않지만 전체 집합을 구성할 수 있는 조합을 찾아내는 것이다.
 
-예시로, 집합 $X=\{1, 2, 3, 4, 5, 6, 7\}$와 $X$의 부분집합들의 집합 $S=\{A, B, C, D, E, F\}$를 잡아보자.
+예시로, 집합 $X=\lbrace1, 2, 3, 4, 5, 6, 7\rbrace$와 $X$의 부분집합들의 집합 $S=\lbrace A, B, C, D, E, F\rbrace$를 잡아보자.
 
-이때, $A=\{1, 4, 7\}, B=\{1, 4\}, C=\{4, 5, 7\}, D=\{3, 5, 6\}, E=\{2, 3, 6, 7\}, F=\{2, 7\}$ 라고 하자.
+이때, $A=\lbrace1, 4, 7\rbrace, B=\lbrace1, 4\rbrace, C=\lbrace4, 5, 7\rbrace, D=\lbrace3, 5, 6\rbrace, E=\lbrace2, 3, 6, 7\rbrace, F=\lbrace2, 7\rbrace$ 라고 하자.
 
-이 경우 $S$의 부분집합 $S^\star=\{B, D, F\}$가 $X$의 exact cover가 된다.
+이 경우 $S$의 부분집합 $S^\star=\lbrace B, D, F\rbrace$가 $X$의 exact cover가 된다.
 
 이처럼 포함 관계가 중심이 되는 exact cover는 다양한 형태로 표현될 수 있는데, 여기서는 추후에 설명할 알고리즘 X에서 사용될 행렬을 이용한 방법에 대해서만 알아보고자 한다.
 
@@ -33,7 +34,7 @@ $S$의 원소들에 대해 행을 구성하고, $X$의 원소들에 대해 열�
 
 ### Exact Hitting Set Problem
 
-Exact cover 문제가 부분집합의 조합을 고르는 것이었다면 이와 비슷하면서도 조금 다른 Exact Hitting Set 문제는 주어진 모든 부분집합에 대해 원소가 한번씩만 등장하는 주어진 전체집합의 부분집합을 고르는 문제이다.  이는 예시를 통해 쉽게 이해할 수 있다. 위에서 설명한 $X=\{1, 2, 3, 4, 5, 6, 7\}$와 $S=\{A, B, C, D, E, F\}$에서 Exact Hitting Set은 $X$의 부분집합 $X^\star=\{1, 2, 5\}$가 된다. $S$의 원소들 $A \cdots F$에 대해 $X^\star$와 겹치는 원소는 항상 1개이기 때문이다.
+Exact cover 문제가 부분집합의 조합을 고르는 것이었다면 이와 비슷하면서도 조금 다른 Exact Hitting Set 문제는 주어진 모든 부분집합에 대해 원소가 한번씩만 등장하는 주어진 전체집합의 부분집합을 고르는 문제이다.  이는 예시를 통해 쉽게 이해할 수 있다. 위에서 설명한 $X=\lbrace1, 2, 3, 4, 5, 6, 7\rbrace$와 $S=\lbrace A, B, C, D, E, F\rbrace$에서 Exact Hitting Set은 $X$의 부분집합 $X^\star=\lbrace1, 2, 5\rbrace$가 된다. $S$의 원소들 $A \cdots F$에 대해 $X^\star$와 겹치는 원소는 항상 1개이기 때문이다.
 
 ### 활용
 
@@ -45,9 +46,9 @@ Exact cover 문제가 부분집합의 조합을 고르는 것이었다면 이와
 
 위와 같이 중심이 뚤린 판을 채우는 경우 다음과 같이 집합을 만들 수 있다.
 
-* $\{F,12,13,21,22,32\}$
+* $\lbrace F,12,13,21,22,32\rbrace$
 * $\cdots$
-* $\{L,12,22,32,42,43\}$
+* $\lbrace L,12,22,32,42,43\rbrace$
 * $\cdots$
 
 스도쿠의 경우 이보다는 조금 더 복잡하다. 일반적인 $9\times 9$ 스도쿠는 4가지 조건들을 만족시켰을 때 스도쿠를 해결했다고 정의된다.
@@ -285,3 +286,4 @@ void uncover(node* c)
 * <https://en.wikipedia.org/wiki/Dancing_Links>
 * <https://www.geeksforgeeks.org/introduction-to-exact-cover-problem-and-algorithm-x/>
 * <https://infossm.github.io/blog/2019/12/15/knuths-algorithm-x/>
+* <https://jeonggyun.tistory.com/225>

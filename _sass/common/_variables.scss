@@ -1,9 +1,10 @@
 $base: (
   font-family:            ("Noto Sans KR", sans-serif), //-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif),
-  font-family-code:       ('Fira Mono', 'Ubuntu Mono', Menlo, Monaco, Consolas, Andale Mono, lucida console, Courier New, monospace),
+  font-family-code:       ("Fira Code","Source Code Pro",'Ubuntu Mono', Menlo, Monaco, Consolas, Andale Mono, lucida console, Courier New, monospace),
 
   font-size-root:         16px,
   font-size-root-sm:      14px,
+  font-size-code:		  12px,
 
   font-size-xl:           1.5rem,
   font-size-lg:           1.25rem,

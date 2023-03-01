@@ -1,5 +1,10 @@
 header:
   - titles:
+      en      : &EN       Category
+      ko      : &KO       카테고리
+    url: /category.html
+
+  - titles:
       # @start locale config
       en      : &EN       Archive
       en-GB   : *EN
@@ -13,7 +18,7 @@ header:
       zh-Hant : &ZH_HANT  歸檔
       zh-TW   : *ZH_HANT
       zh-HK   : *ZH_HANT
-      ko      : &KO       아카이브
+      ko      : &KO       태그
       ko-KR   : *KO
       fr      : &FR       Archives
       fr-BE   : *FR
@@ -50,3 +55,5 @@ header:
       tr      : &TR       Hakkında
       # @end locale config
     url: /about.html
+
+

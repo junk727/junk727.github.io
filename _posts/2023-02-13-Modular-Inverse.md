@@ -3,6 +3,7 @@ title: '모듈러 역원 - Modular Inverse'
 tag:
 - math
 - ps
+category: ['Math','Number Theory']
 ---
 
 ## 유클리드 알고리즘 - Euclidean Algorithm
@@ -130,19 +131,11 @@ $$x=y'\\ y=x'-qy'\\ q=\frac{a}{b}$$
 ### 코드
 
 ```cpp
-typedef pair<int,pair<int,int>> pip;
-
-pip eGCD(int a, int b)
+tuple<int,int,int> eGCD(int a, int b)
 {
-    if(!b) return {a,{1,0}};
-
-    pip ret = eGCD(b,a%b);
-
-    int d = ret.first;
-    int xp = ret.second.first;
-    int yp = ret.second.second; 
-
-    return {d,{yp,xp-(a/b)*yp}};
+    if(!b) return {a,1,0};
+    auto [g,x,y]=eGCD(b,a%b);
+    return {g,y,x-a/b * y};
 }
 ```
 ## 모듈러 역원 - Modular Inverse
@@ -204,31 +197,23 @@ $$a\times a^{-1}+m\times(-k)=1$$
 
 이고, 계수가 $a,m$인 베주 항등식이므로 앞서 설명한 확장 유클리드 알고리즘을 사용하면 더 빠르게 구할 수 있다.
 
-그런데, 만약 $m$이 소수인 경우 [페르마의 소정리](https://en.wikipedia.org/wiki/Fermat%27s_little_theorem)를 이용하여 구할 수 있다! 이에 따라 $a,m$이 서로소라면 $$a^{m-1}\equiv 1\;(mod\ m)$$이 성립하고, $a^{m-1}=a\times a^{m-2}\equiv 1\;(mod\ m)$ 이므로 역원은 $a^{m-2}$가 된다.
+그런데, 만약 $m$이 소수인 경우 [페르마의 소정리](https://en.wikipedia.org/wiki/Fermat%27s_little_theorem)를 이용하여 구할 수 있다! 이에 따라 $a,m$이 서로소라면 $a^{m-1}\equiv 1\;(mod\ m)$이 성립하고, $a^{m-1}=a\times a^{m-2}\equiv 1\;(mod\ m)$ 이므로 역원은 $a^{m-2}$가 된다.
 
 ### 코드
 ```cpp
-typedef pair<int,pair<int,int>> pip;
-
-pip eGCD(int a, int b)
+tuple<int,int,int> eGCD(int a, int b)
 {
-    if(!b) return {a,{1,0}};
-
-    pip ret = eGCD(b,a%b);
-
-    int d = ret.first;
-    int xp = ret.second.first;
-    int yp = ret.second.second; 
-
-    return {d,{yp,xp-(a/b)*yp}};
+    if(!b) return {a,1,0};
+    auto [g,x,y]=eGCD(b,a%b);
+    return {g,y,x-a/b * y};
 }
 
 int inverseMod(int a, int m)
 {
-    pip ans = eGCD(a,m);
-    if(ans.first!=1) return -1;
-    return ans.second.first
-    //or return (ans.second.first+m)%m;
+    auto [g,x,_] = eGCD(a,m);
+    if(g!=1) return -1;
+    return x 
+    //or return (x+m)%m;
 }
 ```
 <!--
