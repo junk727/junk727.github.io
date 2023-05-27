@@ -1,16 +1,17 @@
-site_name: My Docs
+site_name: junk의 신나는 PS 블로그
 theme:
   name: material
+  language: ko
   palette:
     scheme: slate
     primary: indigo
     accent: blue
   font:
-      text: Noto Sans
+      text: Noto Serif KR
   features:
+    - naviagtion.tabs
     - naviagtion.tracking
     - navigation.indexes
-    - naviagtion.tabs
     - navigation.footer
 
     - search.highlight
