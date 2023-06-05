@@ -1,15 +1,10 @@
----
-hide:
-  - navigation
----
-
 # N! mod P
 
 이 글은 정말 유명한? 문제라고 할 수 있는 $\text{N}!\ \text{mod}\ p$ 문제를 다음 글을 바탕으로 공부한 내용을 정리하였다.
 
 [N! mod p의 빠른 계산](https://infossm.github.io/blog/2019/09/17/fast-factorial-calculation/)
 
-## $\text{N}!\ \text{mod}\ p$
+## N! mod p
 
 당연히 Naive 하게 구현을 시도한다면 $O(n)$이 되겠지만, 조금 창의적인 발상을 시도하면 $O(nlogn)$에 구할 수 있다.
 

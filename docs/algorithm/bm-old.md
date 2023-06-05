@@ -1,0 +1,193 @@
+---
+title: '선형 점화식 - Linear Recurrence Relation'
+tag:
+- math
+- ps
+category: ['Algorithm','Math']
+---
+
+이 글에서는 선형 점화식을 찾는 벌레캠프 알고리즘과 확장 유클리드법을 사용한 알고리즘을 다룬다.
+
+## 벌레캠프 매시 - Berlekamp Massey
+
+앞서 선형 점화식이 주어졌을 때 빠르게 계산하는 방법인 키타마사법에 대해서 알아보았다. 여기서 더 나아가 선형 점화식을 찾아내는 벌레캠프 매시 알고리즘에 대해 알아보자.
+
+벌레캠프 매시 알고리즘의 기원은 저 멀리 통신 오류를 검출하는 것에서부터 시작한다. 암호학과 관련된 이 부분에 대해서는 아직 잘 이해하지 못하였기에 추후에 더 공부를 한 뒤 추가로 작성을 하고자 한다. [이 블로그](https://casterian.net/algo/reed-solomon.html)를 참고하자.
+
+### 아이디어
+
+벌레캠프 매시 알고리즘은 수열을 탐색하면서 계산을 했을 때 올바르지 않은 값인 경우 신기한 방법으로 점화식을 수정해나가는, 개인적으로 브루트 포스 느낌이 나는 알고리즘이다.
+
+주어진 수열 $s=\lbrace1,2,4,8,13,20,28,215,757,2186\rbrace$의 점화식을 찾는 예시와 함께 살펴보자.
+
+그 전에 앞으로 쓰일 용어들에 대해 정리를 하고 넘어가자. 
+* 수열의 경우 $0$-based 인덱싱 $\lbrace s_0,s_1,\cdots \rbrace$으로, 계수의 경우 $1$-based 인덱싱 $\lbrace c_1,c_2,\cdots \rbrace$으로 정의한다.
+* 수열을 인덱스 $i$에서 평가한다는 것은 주어진 계수 수열 $c=\lbrace c_1,c_2,\cdots,c_n\rbrace$을 바탕으로 $\sum_{j=1}^{n}c_js_{i-j}$를 구한다는 것이다. 
+
+먼저 공집합으로 초기화된 계수 수열을 가지고 시작한다. $c=\lbrace \rbrace$
+
+$0$번째 인덱스에서 수열을 평가하면 $c(0)=0\neq s_0$이므로 아무 숫자로 일단 초기화 시켜준다. $c=\lbrace1\rbrace$
+
+$1$번째 인덱스에서 수열을 평가하면 $c(1)=c_1*s_{1-1}=1\neq s_1$이므로 이를 만족시킬 수 있도록 $c=\lbrace 2\rbrace$로 수정한다.
+
+$2,3$번재 인덱스에서 평가했을 때 결과가 잘 나오므로 넘어간다.
+
+$4$번째 인덱스에서 평가를 해보자. $c(4)=c_1*s_{4-1}=16\neq s_4$인데, 이를 만족시키기 위해 $c=\lbrace \frac{13}{8} \rbrace$로 고치는 것은 이전 결과들을 다 날리는 것이기에 당연히 말도 안되는 일이다. 그러면 어떻게 계수 수열을 수정해야할까? 
+
+여기서 일종의 트릭이 등장한다.
+기존에 실패한 $c$를 복구하기 위해 새로운 수열 $d$를 찾고, $c$에 더해주는 것이다.
+
+수열 $d$는 다음 과정을 통해 구해진다.
+먼저 $f$를 적당한 이전 버전의 $c$가 수정된 인덱스로, $i$를 수열에서 실패한 인덱스로 정의하자.
+현재 예시에서 이전 버전의 $c$는 $\lbrace\rbrace,\lbrace 1 \rbrace$이 있는데, 이들 중 $\lbrace 1 \rbrace$를 선택하자. 그러면 $f$는 $1$, $i$는 $4$이다.
+1. $d$를 수정되기 전 $c$로 초기화 시켜준다. 예시를 보면 1번째 인덱스에서 $c$가 $\lbrace 1\rbrace$에서 $\lbrace 2\rbrace$로 수정되었으므로 $d$는 $\lbrace 1\rbrace$이 된다.
+1. 수열에 $-1$을 곱해준다.
+2. 가장 왼쪽에 1을 추가한다.
+3. 기존 수열과 계산한 값의 차이를 $\Delta=s_i-c(i)$라고 했을 때 $\cfrac{\Delta}{d(f+1)}$를 곱해준다. 이때 $d(f+1)$은 $d$ 계수 수열을 바탕으로 수열을 평가한다는 의미이다.
+4. 왼쪽에 $i-f-1$개의 $0$을 추가해준다.
+
+현재 예시에서 $d$는 다음과 같이 변화한다.
+
+1. $d=\lbrace 1 \rbrace$
+2. $d=\lbrace -1 \rbrace$
+3. $d=\lbrace 1,-1 \rbrace$
+4. $\cfrac{\Delta}{d(f+1)}=\cfrac{13-16}{2\times 1-1\times 1}=-3,d=\lbrace -3,3 \rbrace$
+5. $d=\lbrace 0,0,-3,3 \rbrace$
+
+이제 $c$에 $d$를 더해주자.
+
+$$c+d=\lbrace 2 \rbrace+\lbrace 0,0,-3,3 \rbrace=\lbrace 2,0,-3,3 \rbrace$$
+
+이제 신기하게도 값들이 다 들어맞게 된다!
+
+인덱스 $5,6$에서도 평가한 값이 같지만, 인덱스 $7$에서는 틀리게 된다.
+
+당황하지 말고 위와 같은 과정을 반복해주자.
+
+1. $d=\lbrace 2 \rbrace$
+2. $d=\lbrace -2 \rbrace$
+3. $d=\lbrace 1,-2 \rbrace$
+4. $\cfrac{\Delta}{d(f+1)}=\cfrac{174}{-3}=-58,d=\lbrace -58,116\rbrace$
+5. $d=\lbrace 0,0,-58,116 \rbrace$
+
+$$c+d=\lbrace 2,0,-3,3 \rbrace+\lbrace 0,0,-58,116 \rbrace=\lbrace 2,0,-61,119 \rbrace$$
+
+인덱스 $8,9$에서도 평가값이 수열과 같으므로 성공적으로 계수 수열을 찾게 되었다!
+
+$$c=\lbrace 2,0,-61,119 \rbrace$$
+
+아니 그런데, $d$를 수정하는 저 과정은 어떤 원리로 계산하는 걸까? 조금 더 알아보자.
+
+### Calculating D
+
+우리가 구해야 하는 $d$는 평가했을 때 나온 값과 실제 수열의 차이를 메꿔줄 수 있는 수열이 되어야 한다. 
+
+이때 중요한 조건은 틀린 인덱스의 값을 제외한 다른 값들은 바뀌면 안된다는 것이다. 그렇기에 틀린 인덱스 이전의 인덱스들에 대해서는 계수 수열 $d$의 평가값이 0, 틀린 인덱스에서의 평가값은 기존 수열과의 차이 만큼 나오게 하면 된다. 
+
+자, 적당한 이전 버전의 $c$를 $b$라고 일단 두자. 이때, $j<f$일때 $b(j)=s_j$ 이고 그 $b(f)\neq s_f$임은 자명하다. 즉, $s_j-b(j)=0, s_f-b(f)\neq 0$이다.
+
+이때, 3단계까지 진행하고 나면 
+
+$$d=\lbrace 1,-b_1,-b_2,\cdots,-b_n\rbrace$$
+
+이 되고 이때 이 계수 수열을 평가하면
+
+$$\begin{align*}
+d(j+1)&=\sum_{k=1}^n d_k s_{j+1-k} \\ &= 1 \cdot s_j - b_1 s_{j-1} - b_2 s_{j-2} - \dots - b_n s_{j-n} \\ &= s_j - (b_1 s_{j-1} + b_2 s_{j-2} + \dots + b_n s_{j-n}) \\ &= s_j - b(j)\end{align*}$$
+
+이 되므로 $j\leq f$에 대해서는 $d(j)=0$이고, $d(f+1)\neq 0$이다.
+
+즉, $\cfrac{\Delta}{d(f+1)}$을 곱해주게 되면 $d(j)=0$은 유지되지만 $d(f+1)=\Delta$가 된다!
+
+따라서 우리는 틀린 인덱스의 값을 보충해줄 수 있는 계수 수열 $d$를 찾게 되었다.
+
+이후 $i-f-1$개의 $0$을 $d$ 앞에 추가해주면 된다. 이때, $0$을 추가해주는 것은 단순히 '수열을 민다'라고 보면 된다. 즉, $0$을 $x$개 추가한 수열 $d'$는 $d'(j)=d(j-x)$를 만족한다. 
+
+따라서 $0$을 $i-f-1$개 추가해줌으로써 $d'(i)=d(i-(i-f-1))=d(f+1)=\Delta$가 되고, $j<i$ 에 대해서는 $d'(j)=0$이 되므로 우리가 원하는 형태의 $d$를 찾았다! 
+
+이제 실패했던 $c$에 그대로 더해주면 완성이다!
+
+### 수열의 길이?
+
+앞에서 여러번 등장한 **적당한 이전 버전의** $c$ 가 가지는 의미는 무엇일까? 어떤 $c$를 고르는 것이 적당한 것일까? 
+
+인덱스를 따라 계산하면서 $c$가 계속해서 변화하게 되는데, 이때 $c$를 수정해주기 위해 이전 버전의 $c$를 사용해야 한다. 
+
+이때, $c$가 포함하는 항들을 구간으로 표현해보자. 이전 버전의 $c$들 중 구간의 끝이 가장 큰 $c$를 선택하지 않는다면 $d$를 계산했을 때 결국에는 가장 오른쪽에 있는 $c$를 포함 되게 된다.
+
+즉, 이전 $c$를 항상 갱신하지 않고 구간의 끝을 기준으로 갱신해주면서 계산하면 된다.
+
+### 구현
+
+코드는 [구사과님의 블로그](https://koosaga.com/231)에서 가져왔다. 주석은 위에서 설명한 내용을 바탕으로 작성하였다.
+
+```cpp
+const int mod = 998244353;
+typedef long long ll;
+ll ipow(ll x, ll p)
+{
+	ll ret = 1, piv = x;
+	while(p)
+    {
+		if(p & 1) ret = ret * piv % mod;
+		piv = piv * piv % mod; p >>= 1;
+	}
+	return ret;
+}
+vector<int> berlekamp_massey(vector<int> x){
+	vector<int> ls, cur;
+    //ls  : 이전 c 
+    //cur : 현재 c
+	int lf, ld;
+    //lf : 이전 c가 변했던 인덱스 f
+    //ld : 
+
+	for(int i=0; i<x.size(); i++){
+        //수열 평가
+		ll t = 0;
+		for(int j=0; j<cur.size(); j++)
+			t = (t + 1ll * x[i-j-1] * cur[j]) % mod;
+        //만약 평가한 값이 수열과 같다면 넘어가기
+		if((t - x[i]) % mod == 0) continue;
+        //만약 처음으로 수정하는 단계라면 적절한 초깃값 지정
+		if(cur.empty()){
+			cur.resize(i+1);
+			lf = i;
+			ld = (t - x[i]) % mod;
+			continue;
+		}
+
+        //1 추가 후 -1 곱해주는 과정을 축약
+		ll k = -(x[i] - t) * ipow(ld, mod - 2) % mod;
+        //k = delta/d(f+1)
+		vector<int> c(i-lf-1);
+		c.push_back(k);
+		for(auto &j : ls) c.push_back(-j * k % mod);
+
+        //0 개수 채우기
+		if(c.size() < cur.size()) c.resize(cur.size());
+
+        //c+d
+		for(int j=0; j<cur.size(); j++){
+			c[j] = (c[j] + cur[j]) % mod;
+		}
+
+        //구간 끝의 길이를 비교해서 갱신 여부 결정
+		if(i-lf+(int)ls.size()>=(int)cur.size()){
+			tie(ls, lf, ld) = make_tuple(cur, i, (t - x[i]) % mod);
+		}
+		cur = c;
+	}
+	for(auto &i : cur) i = (i % mod + mod) % mod;
+	return cur;
+}
+
+```
+
+이후 구한 점화식을 바탕으로 $n$번째 항을 구해주면 된다.
+
+## 참고문헌
+* <https://mzhang2021.github.io/cp-blog/berlekamp-massey/> - 정말 큰 도움이 되었다! :D
+* <https://casterian.net/algo/reed-solomon.html>
+* <https://codeforces.com/blog/entry/61306>
+* <https://codeforces.com/blog/entry/101628>

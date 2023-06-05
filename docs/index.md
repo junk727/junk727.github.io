@@ -1,39 +1,24 @@
-# Mkdocs에 온 것을 환영! 
+---
+title: Home
+hide:
+  - toc
+  - navigation
+---
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+# PS Blog
 
-## Commands
+알고리즘 및 수학 분야를 다루는 블로그입니다!
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+## Algorithm
+* [N! mod p](algorithm/nmodp.md)
+* [Berlekamp-Massey algorithm](algorithm/berlekamp-massey.md)
+* [↑'s old version](algorithm/bm-old.md)
 
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
-
-### 한국어 응애
-
-한국어 예시일까 아닐까?
-
-## 코드
-```cpp
-tuple<int,int,int> eGCD(int a, int b)
-{
-    if(!b) return {a,1,0};
-    auto [g,x,y]=eGCD(b,a%b);
-    return {g,y,x-a/b * y};
-}
-
-int inverseMod(int a, int m)
-{
-    auto [g,x,_] = eGCD(a,m);
-    if(g!=1) return -1;
-    return x 
-    //or return (x+m)%m;
-}
-```
+## Math
+* [Number Theory](math/Number_Theory/index.md)
+    * [Chinese Remainder Theorem](math/Number_Theory/crt.md)
+* [Abstract Algebra](math/Abstract_Algebra/index.md)
+    * [Magma](math/Abstract_Algebra/Magma.md)
+    * [Group Theory](math/Abstract_Algebra/group.md)
+    * [Field Theory](math/Abstract_Algebra/field.md)
+    * [Ring Theory](math/Abstract_Algebra/ring.md)
