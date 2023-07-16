@@ -1,0 +1,12 @@
+---
+layout: page
+title: "About"
+header-img: "./img/mit.jpg"
+header-mask: 0.3
+multilingual: false
+---
+
+<div class="en post-container">
+    {% capture about_en %}{% include about/en.md %}{% endcapture %}
+    {{ about_en | markdownify }}
+</div>
