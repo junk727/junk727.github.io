@@ -2,7 +2,6 @@
 title: '춤추는 링크 - Dancing Links'
 tag:
 - ps
-category: ['Algorithm','Etc']
 ---
 
 이 글에서는 Exact Cover 문제들과 알고리즘 X, 그리고 최적화 테크닉 Dancing Links에 대해 다룬다.
@@ -30,7 +29,7 @@ Exact Cover 문제의 사전적 정의는 다음과 같다.
 
 $S$의 원소들에 대해 행을 구성하고, $X$의 원소들에 대해 열을 구성한다. 이후 $S$의 원소가 $X$의 원소를 포함하고 있으면 1, 아니면 0으로 표시한다. 위의 예시의 경우 다음과 같이 만들어진다.
 
-<center><img class="image image--md" src="/img/exact_cover_grid.png"/></center>
+<center><img src="/img/exact_cover_grid.png"/></center>
 
 ### Exact Hitting Set Problem
 
@@ -67,9 +66,9 @@ $$RxCy\#z$$
 이때 조건들은 다음과 같이 표현할 수 있다.
 
 1. $RxCy$ : $(x,y)$ 칸에 위치할 수 있는 숫자
-2. $Rx\#z$ : $x$ 번째 행에 오는 숫자 $z$
-3. $Cy\#z$ : $y$ 번재 열에 오는 숫자 $z$
-4. $Bk\#z$ : $k$ 번째 상자에 들어가는 숫자 $z$
+2. $$Rx\#z$$ : $x$ 번째 행에 오는 숫자 $z$
+3. $$Cy\#z$$ : $y$ 번재 열에 오는 숫자 $z$
+4. $$Bk\#z$$ : $k$ 번째 상자에 들어가는 숫자 $z$
 
 이후 조건에 포함되는 수들은 1로 표현해주면 다음과 같이 $729\times 324$ 크기의 행렬이 만들어진다.
 

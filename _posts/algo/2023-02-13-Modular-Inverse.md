@@ -1,11 +1,8 @@
 ---
-layout: post
 title: '모듈러 역원 - Modular Inverse'
 tag:
 - math
 - ps
-category: ['Math','Number Theory']
-mathjax: true
 ---
 
 ## 유클리드 알고리즘 - Euclidean Algorithm
@@ -16,7 +13,8 @@ mathjax: true
 
 $$b=aq_1+r_1 \\ a=r_1q_2+r_2 \\ r_1=r_2q_3+r_3 \\ \vdots \\ r_{n-2}=r_{n-1}q_n+r_n \\ r_{n-1}=r_nq_{n+1}$$
 
-일때, $a,b$의 최대공약수는 $r_n$이다.<br>
+일때, $a,b$의 최대공약수는 $r_n$이다.
+
 즉, $gcd(a,b)=gcd(a,r_1)$이 성립한다.
 
 ### 증명
